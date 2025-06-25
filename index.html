@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Day for Nuha 💫</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .heart-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .heart-2 { top: 20%; right: 15%; animation-delay: 1s; }
+        .heart-3 { bottom: 30%; left: 20%; animation-delay: 2s; }
+        .heart-4 { top: 60%; right: 25%; animation-delay: 3s; }
+        .heart-5 { bottom: 20%; right: 10%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .container {
+            z-index: 10;
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: cardEntry 1s ease-out;
+        }
+
+        @keyframes cardEntry {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .main-question {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .answer-btn:hover::before {
+            left: 100%;
+        }
+
+        .correct-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .correct-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        .wrong-btn {
+            background: linear-gradient(135deg, #a8a8a8, #c0c0c0);
+            color: white;
+            box-shadow: 0 8px 25px rgba(168, 168, 168, 0.3);
+        }
+
+        .wrong-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(168, 168, 168, 0.4);
+        }
+
+        .wrong-message {
+            display: none;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 20px;
+            animation: messageSlide 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(250, 177, 160, 0.3);
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wrong-message p {
+            font-size: 1.1rem;
+            color: #d63031;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .retry-btn {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .main-question {
+                font-size: 1.8rem;
+            }
+            
+            .question-card {
+                padding: 30px 20px;
+            }
+            
+            .answer-btn {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body class="page-1">
+    <div class="floating-hearts">
+        <div class="heart heart-1">💕</div>
+        <div class="heart heart-2">💖</div>
+        <div class="heart heart-3">💝</div>
+        <div class="heart heart-4">✨</div>
+        <div class="heart heart-5">🌟</div>
+    </div>
+    
+    <div class="container">
+        <div class="question-card">
+            <h1 class="main-question">Hey bubs, before we proceed, do you love me? 💫</h1>
+            
+            <div class="buttons-container">
+                <button class="answer-btn correct-btn" onclick="goToPage2()">
+                    Yes! Of course!
+                </button>
+                <button class="answer-btn wrong-btn" onclick="showWrongMessage()">
+                    Umm, Not sure 
+                </button>
+            </div>
+            
+            <div class="wrong-message" id="wrongMessage">
+                <p>WRONG ANSWER!!!</p>
+                <p>Think again, beautiful! 🌸</p>
+                <button class="retry-btn" onclick="hideWrongMessage()">try again 💫</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let wrongAttempts = 0;
+        
+        const wrongMessages = [
+            "WRONG ANSWER!!!",
+            "WRONG AGAIN! Try harder! 💖",
+            "NOPE! Think again! 💕",
+            "STILL WRONG! Come on bubs! 😊",
+            "WRONG! Stop being silly! 💝",
+            "INCORRECT! Just say yes! 🥰",
+            "WRONG ANSWER! I'm not giving up! 💫",
+            "NOPE! Pretty please? 🍒",
+            "WRONG! You know you love me! 😘",
+            "STILL WRONG! Just say YES already! 💕"
+        ];
+
+        const questions = [
+            "Hey bubs, before we proceed, do you love me? 💫",
+            "Okay, let me ask again... Do you love me? 💖",
+            "Come on, seriously now... Do you love me? 💕",
+            "I'm being patient here... Do you love me? 🥰",
+            "One more time, sweetheart... Do you love me? 💝",
+            "I'll keep asking... Do you love me, bubs? 😊",
+            "Not giving up! Do you love me? 💫",
+            "Still waiting for that yes... Do you love me? 🌸",
+            "I have all day, darling... Do you love me? 💖",
+            "Last chance before I ask again... Do you love me? 💕"
+        ];
+
+        function goToPage2() {
+            window.location.href = 'page2.html';
+        }
+        
+        function showWrongMessage() {
+            wrongAttempts++;
+            
+            // Update the wrong message based on attempts
+            const messageIndex = Math.min(wrongAttempts - 1, wrongMessages.length - 1);
+            document.querySelector('#wrongMessage p:first-child').textContent = wrongMessages[messageIndex];
+            
+            // Update the question for next time
+            const questionIndex = Math.min(wrongAttempts, questions.length - 1);
+            document.querySelector('.main-question').textContent = questions[questionIndex];
+            
+            // Show the wrong message
+            document.getElementById('wrongMessage').style.display = 'block';
+            document.querySelector('.buttons-container').style.opacity = '0.3';
+            
+            // Add some playful effects
+            if (wrongAttempts > 3) {
+                document.querySelector('.question-card').style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    document.querySelector('.question-card').style.animation = '';
+                }, 500);
+            }
+        }
+        
+        function hideWrongMessage() {
+            document.getElementById('wrongMessage').style.display = 'none';
+            document.querySelector('.buttons-container').style.opacity = '1';
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

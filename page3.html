@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Beautiful Memories 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .heart-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .heart-2 {
+            top: 20%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .heart-3 {
+            top: 60%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+
+        .heart-4 {
+            top: 70%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .heart-5 {
+            top: 40%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .heartfelt-message {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .heartfelt-message p {
+            color: white;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .memory-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .memory-placeholder {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .memory-icon {
+            font-size: 3rem;
+        }
+
+        .memory-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .next-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .popup-close:hover {
+            color: #ff6b6b;
+        }
+
+        .popup-left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .popup-photo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .popup-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .popup-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-title {
+                font-size: 2.5rem;
+            }
+
+            .memory-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .popup-content {
+                margin: 1rem;
+                padding: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .popup-right {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="page-3">
+    <div class="floating-hearts">
+        <div class="heart heart-1">💕</div>
+        <div class="heart heart-2">💖</div>
+        <div class="heart heart-3">💝</div>
+        <div class="heart heart-4">✨</div>
+        <div class="heart heart-5">🌟</div>
+    </div>
+
+    <div class="container">
+        <h1 class="gallery-title">Our Beautiful Memories 💕</h1>
+        <div class="heartfelt-message">
+            <p>I know we've only been together for a few months(Officially), but the little moments we've shared are too
+                precious</p>
+        </div>
+        <div class="memory-gallery">
+            <div class="memory-card" onclick="openPhotoPopup(1)">
+                <div class="memory-placeholder">
+                    <div class="memory-icon">💝</div>
+                </div>
+                <h3 class="memory-title">The Day We Met</h3>
+                <p class="memory-description">The moment everything changed</p>
+            </div>
+            <div class="memory-card" onclick="openPhotoPopup(2)">
+                <div class="memory-placeholder">
+                    <div class="memory-icon">🥾</div>
+                </div>
+                <h3 class="memory-title">Our First Hike</h3>
+                <p class="memory-description">When we almost got lost.lol.</p>
+            </div>
+            <div class="memory-card" onclick="openPhotoPopup(3)">
+                <div class="memory-placeholder">
+                    <div class="memory-icon">🏝️</div>
+                </div>
+                <h3 class="memory-title">Our first trip</h3>
+                <p class="memory-description">One of the best days of my life</p>
+            </div>
+
+            <div class="memory-card" onclick="openPhotoPopup(4)">
+                <div class="memory-placeholder">
+                    <div class="memory-icon">🌙</div>
+                </div>
+                <h3 class="memory-title">YOU</h3>
+                <p class="memory-description">My beautiful kanmani</p>
+            </div>
+        </div>
+
+        <button class="next-btn" onclick="goToPage4()">
+            Continue the Magic ✨
+        </button>
+    </div>
+
+    <!-- Photo Popup -->
+    <div class="popup-overlay" id="photoPopup">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePhotoPopup()">&times;</button>
+            <div class="popup-left">
+                <div class="popup-left" id="popupImageContainer">
+                    <!-- Images will be added dynamically -->
+                </div>
+            </div>
+            <div class="popup-right">
+                <h2 id="popupTitle" class="popup-title"></h2>
+                <p id="popupDescription" class="popup-description"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const popup = document.getElementById('photoPopup');
+        const popupImage = document.getElementById('popupImage');
+        const popupImageContainer = document.getElementById('popupImageContainer');
+
+        const popupTitle = document.getElementById('popupTitle');
+        const popupDescription = document.getElementById('popupDescription');
+
+        const popupData = {
+            1: {
+                image: './1.jpg',
+                title: 'The Day We Met 💕',
+                description: 'This was the moment that changed everything. I remember exactly how you looked, how you smiled, and how my heart knew that this was the beginning of something beautiful. Every day since then has been a gift.'
+            },
+            2: {
+                images: ['./2.jpg', './3.jpg'],
+                title: 'Our First Hike 🥾',
+                description: 'Things were still a question mark between us then, but we really had an awesome adventure. That day I realized how beautiful every step is when I walk beside you. And how my BP can go up when I see you jumping as if you have nine lives. Not to mention, the way we almost got lost😂'
+            },
+            3: {
+                images: ['./4.jpg', './5.jpg'],
+                title: 'Our First Trip',
+                description: 'Totally unexpected, but one of the best days of my life. From the moment we got into the van, every moment was magical. Its like shebs wanted us to have that moment! The holding hands, the kalla glances, the laughter, you and everything, it was all perfect. I still remember the way you looked at me when we were climbing the tower, and how we both knew that this was just the beginning of many more adventures together.'
+                    
+            },
+            4: {
+                images: ['./7.jpg', './8.jpg', './9.jpg', './10.jpg','./11.jpg'],
+                title: 'That Smile',
+                
+            }
+        };
+
+        function openPhotoPopup(cardId) {
+            const data = popupData[cardId];
+            if (data) {
+                popupImageContainer.innerHTML = ''; // clear previous images
+
+                if (Array.isArray(data.images)) {
+                    data.images.forEach(src => {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.className = 'popup-photo';
+                        popupImageContainer.appendChild(img);
+                    });
+                } else {
+                    const img = document.createElement('img');
+                    img.src = data.image;
+                    img.className = 'popup-photo';
+                    popupImageContainer.appendChild(img);
+                }
+
+                popupTitle.textContent = data.title;
+                popupDescription.textContent = data.description;
+                popup.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+
+        function closePhotoPopup() {
+            popup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        popup.addEventListener('click', function (e) {
+            if (e.target === this) closePhotoPopup();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closePhotoPopup();
+        });
+
+
+        function goToPage4() {
+            window.location.href = 'page4.html';
+        }
+    </script>
+</body>
+
+</html>
