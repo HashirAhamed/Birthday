@@ -181,12 +181,32 @@
             padding-bottom: 1rem;
         }
 
+        #popupImageContainer {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 1rem;
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scrolling on iOS */
+            scroll-snap-type: x mandatory;
+            /* Optional: Snap scroll */
+        }
+
+        #popupImageContainer::-webkit-scrollbar {
+            display: none;
+            /* Hide scrollbar on mobile */
+        }
+
         .popup-photo {
             flex: 0 0 auto;
             width: 100%;
             max-width: 300px;
+            height: auto;
             border-radius: 15px;
+            scroll-snap-align: start;
         }
+
 
         .next-btn {
             display: block;
